@@ -1,0 +1,11 @@
+if [[ -n $1 ]]; then
+  fdfind --glob "*.${1}" | xargs wc -l
+else
+  echo -e "\e[1mUSAGE:\e[0m how_worth_is_my_job EXT"
+  echo
+  echo -e "Counts all the lines in a directory with the specified extension"
+  echo
+  echo -e "\e[1mArguments\e[0m"
+  echo -e "\tEXT - file extensions to filter by"
+  return 1
+fi

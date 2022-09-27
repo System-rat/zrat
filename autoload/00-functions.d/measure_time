@@ -1,0 +1,5 @@
+local start_time=$(date +%s%3N)
+$@
+export _rat_time_result=$(( $(date +%s%3N) - $start_time ))
+
+return $?

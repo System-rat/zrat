@@ -1,0 +1,44 @@
+local -A mod
+
+# Modifiers
+mod[reset]='0m'
+mod[bold]='1m'
+mod[faint]='2m'
+mod[italic]='3m'
+mod[under]='4m'
+mod[strike]='9m'
+
+# Colors
+mod[black]='30m'
+mod[red]='31m'
+mod[green]='32m'
+mod[yellow]='33m'
+mod[blue]='34m'
+mod[magenta]='35m'
+mod[cyan]='36m'
+mod[white]='37m'
+mod[default]='39m'
+
+# Background colors
+mod[bblack]='40m'
+mod[bred]='41m'
+mod[bgreen]='42m'
+mod[byellow]='43m'
+mod[bblue]='44m'
+mod[bmagenta]='45m'
+mod[bcyan]='46m'
+mod[bwhite]='47m'
+mod[bdefault]='49m'
+
+if [[ $#@ != 0 ]] {
+  while [[ -n $1 ]] {
+    echo -en "\e[${mod[$1]}"
+    shift
+  }
+} else {
+  echo -e '\e[1mUSAGE:\e[0m ansi STYLE'
+  echo
+  echo -e 'Prints an ANSI terminal modifier'
+  echo -e '\e[1mArguments\e[0m'
+  echo -e '\tSTYLE - the style to print (ie. bold, underline, red, etc.)'
+}
