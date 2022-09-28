@@ -1,3 +1,4 @@
+# vim: set ft=zsh :
 if [[ -n $1 ]]; then
   fdfind --glob "*.${1}" | xargs wc -l
 else

@@ -1,1 +1,3 @@
+# vim: set ft=zsh :
+
 echo "test:" $@

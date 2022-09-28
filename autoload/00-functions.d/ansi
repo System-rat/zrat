@@ -1,3 +1,4 @@
+# vim: set ft=zsh :
 local -A mod
 
 # Modifiers

@@ -5,6 +5,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # git
 alias gis='git status'
+alias gid='git diff'
 alias gic='git commit'
 alias gica='git commit --amend'
 alias gir='read -q "choice?Restore entire folder? [y/n]" && git restore .'
