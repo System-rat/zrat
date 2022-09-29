@@ -1,7 +1,3 @@
 # vim: set ft=zsh :
 
-cmd=${BUFFER%% *}
-
-zle push-input
-BUFFER="man $cmd"
-zle accept-line
+man ${BUFFER%% *}
