@@ -1,3 +1,8 @@
 # vim: set ft=zsh :
 
-man ${BUFFER%% *}
+cmd=${BUFFER%% *}
+
+if [[ -n $cmd ]] && [[ ${+commands[$cmd]} == 1 ]] {
+  man $cmd
+}
+
