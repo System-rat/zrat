@@ -14,5 +14,8 @@ fpath+=(~/.zsh/autoload/[0-9]*(/Non))
 for dir in ~/.zsh/autoload/[0-9]*(/Non)
 do
   [[ -n $__rat_debug ]] && echo "Autoloading $dir..."
-  autoload -U $dir/*(.:t:r)
+  files=($dir/*(N.:t:r))
+  if [[ $#files != 0 ]]; then
+    autoload -U $dir/*(.:t:r)
+  fi
 done
