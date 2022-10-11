@@ -1,0 +1,159 @@
+# vim: set ft=zsh :
+
+local print_usage() {
+  echo -e "\
+\e[1mUSAGE:\e[0m readable <format> [INPUT]
+
+Prints a human readable version of the input depending on the input format
+
+\e[1mArguments\e[0m
+\tformat    The input format to convert. Current available formats:
+\t          \ttime, byte
+\tINPUT     The actual input, if not specified the input is assumed to come
+\t          from STDIN
+
+\e[1mAdditional formatting options\e[0m
+\tEach format can have additional options for how to display things
+
+\t\e[1mtime\e[0m
+\t\t-m    Sets the input to milliseconds (default in seconds)
+\t\t-s    Sets the input to seconds with decimal milliseconds
+
+\t\e[1mbyte\e[0m
+\t\t-i    Sets the output format to Kibi (2^10 instead of 10^3 format)"
+}
+
+local format_byte() {
+  local kibi=0
+  while [[ $1 == -* ]] && [[ $1 != "--" ]]; do
+    if [[ $1 == "-i" ]]; then
+      kibi=1
+    fi
+    shift
+  done
+
+  if [[ $1 == "--" ]]; then
+    # pop the extra separator
+    shift
+  fi
+
+  local num
+
+  if [[ $#@ -eq 0 ]]; then
+    read "num"
+  else
+    num=$1
+  fi
+
+  local n=0
+  local div
+
+  if [[ $kibi -eq 1 ]]; then
+    div=1024
+  else
+    div=1000
+  fi
+
+  while [[ $num -ge $div ]]; do
+    num=$(( $num / $div ))
+    n=$(( $n + 1 ))
+  done
+
+  local ext=""
+
+  case $n in
+    0) ext="";;
+    1) ext="K";;
+    2) ext="M";;
+    3) ext="G";;
+    4) ext="T";;
+    *) ext="THICC";;
+  esac
+
+  if [[ $kibi -eq 1 ]] && [[ $n -ne 0 ]]; then
+    ext+="i"
+  fi
+
+  echo $num$ext"B"
+}
+
+local format_time() {
+  local input_type=""
+  while [[ $1 == -* ]] && [[ $1 != "--" ]]; do
+    if [[ $1 == "-m" ]]; then
+      input_type="m"
+    elif [[ $1 == "-s" ]]; then
+      input_type="s"
+    fi
+    shift
+  done
+
+  if [[ $1 == "--" ]]; then
+    # pop the extra separator
+    shift
+  fi
+
+  local num
+
+  if [[ $#@ -eq 0 ]]; then
+    read "num"
+  else
+    num=$1
+  fi
+
+  local mil
+  local sec
+  local min
+  local h
+  local d
+
+  if [[ $input_type == "m" ]]; then
+    mil=$(( $num % 1000 ))
+    num=$(( $num / 1000 ))
+  elif [[ $input_type == "s" ]]; then
+    local r_m=$(( $num % 1 * 1000 ))
+    mil=${r_m%\.[0-9]*}
+    num=${num%\.[0-9]*}
+  fi
+
+  sec=$(( $num % 60 ))
+  min=$(( $num / 60 % 60 ))
+  h=$(( $num / (60 * 60) % 24 ))
+  d=$(( $num / (60 * 60 * 24) ))
+
+  local -a out
+  [[ $d -ne 0 ]] && out+="${d}d"
+  [[ $h -ne 0 ]] && out+="${h}h"
+  [[ $min -ne 0 ]] && out+="${min}m"
+  [[ $sec -ne 0 ]] && out+="${sec}s"
+  [[ $mil -ne 0 ]] && out+="${mil}ms"
+
+  echo $out
+}
+
+if [[ $#@ -eq 0 ]]; then
+  print_usage
+
+  return 1
+fi
+
+local format=$1
+shift
+
+local output=""
+
+case $format in
+  time)
+    output=$(format_time $@)
+    ;;
+  byte)
+    output=$(format_byte $@)
+    ;;
+  *)
+    print_usage
+    return 1
+    ;;
+esac
+
+echo $output
+

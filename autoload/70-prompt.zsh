@@ -1,5 +1,7 @@
 # TODO: FIX THIS ABHORRENT MESS
 
+setopt promptsubst
+
 PROMPT="%B%K{black}%(!.%F{red}.%F{cyan})%n@%M%f%b:%B%F{blue}%~%f %(?..%F{red}%K{black}%k%f%F{white}%K{red}ERR %?%k%f%F{red}%K{black}%k%f%K{black} %k)%k%F{black}%f%b "
 PROMPT2="%B%K{black}%F{cyan}%_%f%k%F{black}%f%b "
 PROMPT3="%B%K{black}%F{cyan}select answer: %f%k%F{black}%f%b "
@@ -15,7 +17,7 @@ precmd() {
     local t=$(( $(date +%s%3N) - $__rat_time ))
 
     if (( $t > 1000 )); then
-      RPROMPT="%F{black}($(( $t / 1000 )).$(( $t % 1000 ))s)%f"
+      RPROMPT="%F{black}($(readable time -m $t))%f"
     else
       RPROMPT=""
     fi

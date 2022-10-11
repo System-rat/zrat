@@ -42,4 +42,6 @@ if [[ $#@ != 0 ]] {
   echo -e 'Prints an ANSI terminal modifier'
   echo -e '\e[1mArguments\e[0m'
   echo -e '\tSTYLE - the style to print (ie. bold, underline, red, etc.)'
+
+  return 1
 }
