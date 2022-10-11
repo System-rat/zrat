@@ -1,5 +1,5 @@
 : ${__rat_fore:="white"}
-: ${__rat_back:="5F3B80"}
+: ${__rat_back:="#5F3B80"}
 local __ratp="PROMPT"
 
 function __ratpu() {
