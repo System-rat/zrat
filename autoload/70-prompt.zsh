@@ -73,7 +73,7 @@ function __rat_build_prompt1 {
   boldr
   wfore white ":"
   bold
-  wfore blue "%~ "
+  wfore '#87FFFC' '$__rat_pwd '
 
   __rat_build_error
 
@@ -134,8 +134,9 @@ preexec() {
 }
 
 precmd() {
+  local cur_t=$(date +%s%3N)
   if [[ $__rat_executing == 1 ]] && [[ -n $__rat_time ]]; then
-    local t=$(( $(date +%s%3N) - $__rat_time ))
+    local t=$(( $cur_t - $__rat_time ))
 
     if (( $t > 1000 )); then
       RPROMPT="%F{black}($(readable time -m $t))%f"
@@ -147,5 +148,15 @@ precmd() {
   fi
 
   __rat_executing=0
+}
+
+function __rat_set_pwd() {
+  __rat_pwd=" "${(j:  :)${(s:/:)PWD/"${HOME}"/'~'}:-/}
+}
+
+__rat_set_pwd
+
+chpwd() {
+  __rat_set_pwd
 }
 
