@@ -1,0 +1,78 @@
+# vim: set ft=zsh :
+
+print_usage() {
+  print "\
+\e[1mUSAGE:\e[0m rat_menu <var_name> <options ...>
+
+Provides an interactive selection menu
+
+\e[1mArguments:\e[0m
+\t\e[1mvar_name\e[0m      Name of the variable to store the result in
+\t\e[1moptions...\e[0m    The selection options"
+}
+
+local var_name
+local curr_selection=1
+local opts
+
+if [[ $#@ < 2 ]]; then
+  print_usage
+  return 1
+fi
+
+var_name=$1
+shift
+opts=($@)
+
+__rat_print_menu() {
+  if [[ -z $1 ]]; then
+    # Move cursor up if it's not the first print
+    print -n "\e[${#opts}F"
+  fi
+
+  for i in {1..$#opts}; do
+    if [[ $i == $curr_selection ]]; then
+      print -n " > \e[1m"
+    else
+      print -n "   "
+    fi
+
+    print -n ${opts[$i]}
+    print "\e[0m"
+  done
+}
+
+__rat_print_menu first
+
+while read -rsk1 ch; do
+  # Mmmmmm yes zsh newline fuckery
+  if [[ $ch == "
+" ]]; then
+      # return result
+      : ${(P)${var_name}::=${opts[curr_selection]}}
+      break
+  fi
+
+  [[ $ch != "q" ]] || return 1
+
+  [[ $ch == $(print -n "\e") ]] || continue
+  read -rsk1 ch
+  [[ $ch == "[" ]] || continue
+
+  read -rsk1 ch
+  case $ch in
+    A)
+      if [[ $curr_selection != 1 ]]; then
+        (( curr_selection = $curr_selection - 1 ))
+      fi
+      ;;
+    B)
+      if [[ $curr_selection < $#opts ]]; then
+        (( curr_selection = $curr_selection + 1 ))
+      fi
+      ;;
+  esac
+
+  __rat_print_menu
+done
+

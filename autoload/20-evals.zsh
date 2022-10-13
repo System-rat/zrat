@@ -1,3 +1,6 @@
 # z
-[[ ${+commands[zoxide]} == 1 ]] && eval "$(zoxide init zsh)"
+(( ${+commands[zoxide]} )) && eval "$(zoxide init zsh)"
+
+# Set up LS_COLORS
+(( ${+commands[dircolors]} )) && eval "$(dircolors)"
 
