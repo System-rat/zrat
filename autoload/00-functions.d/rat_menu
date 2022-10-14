@@ -37,7 +37,7 @@ __rat_print_menu() {
       print -n "   "
     fi
 
-    print -n ${opts[$i]}
+    print -n $i") "${opts[$i]}
     print "\e[0m"
   done
 }
@@ -54,6 +54,13 @@ while read -rsk1 ch; do
   fi
 
   [[ $ch != "q" ]] || return 1
+
+  # TODO: Fix for more than 1-9 options
+  if [[ $ch == [0-9]* ]] && (( $ch > 0 )) && (( $ch < $#opts + 1 )); then
+    curr_selection=$ch
+    __rat_print_menu
+    continue
+  fi
 
   [[ $ch == $(print -n "\e") ]] || continue
   read -rsk1 ch

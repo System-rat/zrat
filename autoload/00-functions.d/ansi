@@ -1,4 +1,15 @@
 # vim: set ft=zsh :
+
+print_usage() {
+  print "\
+\e[1mUSAGE:\e[0m ansi STYLE
+
+Prints an ANSI terminal modifier
+
+\e[1mArguments\e[0m
+\tSTYLE - the style to print (ie. bold, underline, red, etc.)"
+}
+
 local -A mod
 
 # Modifiers
@@ -31,17 +42,35 @@ mod[bcyan]='46m'
 mod[bwhite]='47m'
 mod[bdefault]='49m'
 
+# Cursors control
+mod[up]='A'
+mod[down]='B'
+mod[left]='D'
+mod[right]='C'
+mod[next]='E'
+mod[prev]='F'
+mod[begin]='0G'
+mod[home]='H'
+
+# Erase
+mod[erase_s_end]='J' # Erase from cursor to screen end
+mod[erase_s_begin]='1J' # Erase from cursor to beginning of screen
+mod[erase_all]='2J' # Erase everything
+mod[erase_end]='K' # Erase from cursor to end of line
+mod[erase_begin]='1K' # Erase from cursor to start of line
+mod[erase]='2K' # Erase the entire line
+
+# buffer control
+mod[alt]='?1049h' # Enable alt buffer
+mod[noalt]='?1049l' # Restore normal buffer
+
 if [[ $#@ != 0 ]] {
   while [[ -n $1 ]] {
     echo -en "\e[${mod[$1]}"
     shift
   }
 } else {
-  echo -e '\e[1mUSAGE:\e[0m ansi STYLE'
-  echo
-  echo -e 'Prints an ANSI terminal modifier'
-  echo -e '\e[1mArguments\e[0m'
-  echo -e '\tSTYLE - the style to print (ie. bold, underline, red, etc.)'
+  print_usage
 
   return 1
 }
