@@ -119,12 +119,26 @@ function __rat_build_prompt4 {
   __rat_simple_prompt red white '+%N: %i'
 }
 
+function __rat_build_rprompt {
+  __ratp="__rat_rprompt"
+  fore $__rat_back
+  ba
+  fore $__rat_fore
+  back $__rat_back
+  iden ' $__rat_time'
+
+  forer
+  backr
+  end_prompt
+}
+
 setopt promptsubst
 
 __rat_build_prompt1
 __rat_build_prompt2
 __rat_build_prompt3
 __rat_build_prompt4
+__rat_build_rprompt
 
 __rat_end_prompt
 
@@ -137,16 +151,15 @@ precmd() {
   local cur_t=$(date +%s%3N)
   if [[ $__rat_executing == 1 ]] && [[ -n $__rat_time ]]; then
     local t=$(( $cur_t - $__rat_time ))
-
     if (( $t > 1000 )); then
-      RPROMPT="%F{black}($(readable time -m $t))%f"
+      __rat_time=$(readable time -m $t)
+      RPROMPT=$__rat_rprompt
     else
       RPROMPT=""
     fi
   else
     RPROMPT=""
   fi
-
   __rat_executing=0
 }
 

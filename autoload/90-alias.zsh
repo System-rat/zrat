@@ -7,6 +7,10 @@ if (( $+commands[fdfind] )); then
   alias find="fdfind"
 fi
 
+if [[ $TERM == "xterm-kitty" ]]; then
+  alias ssh="kitty +kitten ssh"
+fi
+
 # git
 alias gis='git status'
 alias gid='git diff'
