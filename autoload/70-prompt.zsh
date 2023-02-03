@@ -120,12 +120,14 @@ function __rat_build_prompt4 {
 }
 
 function __rat_build_rprompt {
+  # Remove redundant indent at the end
+  ZLE_RPROMPT_INDENT=0
   __ratp="__rat_rprompt"
   fore $__rat_back
   ba
   fore $__rat_fore
   back $__rat_back
-  iden ' $__rat_time'
+  iden ' $__rat_time '
 
   forer
   backr
