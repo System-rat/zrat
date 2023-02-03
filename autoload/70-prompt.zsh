@@ -69,7 +69,7 @@ function __rat_build_prompt1 {
   back $__rat_back
 
   bold
-  iden "%n@%M"
+  iden " %n@%m"
   boldr
   wfore white ":"
   bold
