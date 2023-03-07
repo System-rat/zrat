@@ -62,9 +62,29 @@ function __rat_build_error() {
   iden " )"
 }
 
+function __rat_build_prompt1_venv {
+  back $__rat_venv_color
+  fore $__rat_back
+
+  bold
+  iden " $__rat_venv "
+  boldr
+
+  fore $__rat_venv_color
+  back $__rat_back
+  fa
+  forer
+  backr
+}
+
 function __rat_build_prompt1 {
   PROMPT=""
   __ratp="PROMPT"
+  # venv setup
+  if [[ -n $__rat_venv ]]; then
+    __rat_build_prompt1_venv
+  fi
+
   fore $__rat_fore
   back $__rat_back
 
@@ -122,6 +142,7 @@ function __rat_build_prompt4 {
 function __rat_build_rprompt {
   # Remove redundant indent at the end
   ZLE_RPROMPT_INDENT=0
+  __rat_rprompt=""
   __ratp="__rat_rprompt"
   fore $__rat_back
   ba
