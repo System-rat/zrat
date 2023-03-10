@@ -7,7 +7,7 @@ if (( $+commands[fdfind] )); then
   alias find="fdfind"
 fi
 
-if [[ $TERM == "xterm-kitty" ]]; then
+if [[ $TERM == "xterm-kitty" ]] && command -v kitty > /dev/null && [[ -n $KITTY_WINDOW_ID ]]; then
   alias ssh="kitty +kitten ssh"
 fi
 
