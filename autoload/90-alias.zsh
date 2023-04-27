@@ -7,9 +7,19 @@ if (( $+commands[fdfind] )); then
   alias find="fdfind"
 fi
 
-if [[ $TERM == "xterm-kitty" ]] && command -v kitty > /dev/null && [[ -n $KITTY_WINDOW_ID ]]; then
-  alias ssh="kitty +kitten ssh"
+# Kitty fixes
+if [[ $TERM == "xterm-kitty" ]]; then
+  if command -v kitty > /dev/null && [[ -n $KITTY_WINDOW_ID ]]; then
+    alias ssh="kitty +kitten ssh"
+  fi
+
+  # lnav really doesn't like things not being xterm
+  alias lnav="TERM=xterm-256color lnav"
 fi
+
+(( $+commands[bat] )) && alias cat="bat"
+# Debian compat
+(( $+commands[batcat] )) && alias cat="batcat"
 
 # git
 alias gis='git status'
