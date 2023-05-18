@@ -70,7 +70,7 @@ function __rat_build_prompt1_venv {
   iden " $__rat_venv "
   boldr
 
-  fore $__rat_venv_color
+  fore "$__rat_venv_color"
   back $__rat_back
   fa
   forer
@@ -184,6 +184,7 @@ precmd() {
     RPROMPT=""
   fi
   __rat_executing=0
+  __rat_virt_env_check
 }
 
 function __rat_set_pwd() {
