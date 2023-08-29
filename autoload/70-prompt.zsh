@@ -89,12 +89,21 @@ function __rat_build_prompt1 {
   back $__rat_back
 
   bold
+  wfore '#87FFFC' '$__rat_pwd '
+  fore $__rat_back
+  backr
+  fa
+  forer
+  iden $'\n'
+
+  fore $__rat_fore
+  back $__rat_back
+  bold
   iden " %n@%m"
   boldr
-  wfore white ":"
-  bold
-  wfore '#87FFFC' '$__rat_pwd '
+  wfore white ": "
 
+  bold
   __rat_build_error
 
   fore $__rat_back

@@ -15,8 +15,5 @@ function __rat_virt_env_check() {
   else
     __rat_venv=""
     __rat_venv_color=""
-
-    # reload the prompt
-    . ~/.zsh/autoload/70-prompt.zsh
   fi
 }
