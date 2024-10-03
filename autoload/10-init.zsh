@@ -1,7 +1,7 @@
 # Options
 HISTFILE=~/.zhistfile
-HISTSIZE=2000
-SAVEHIST=2000
+HISTSIZE=10000
+SAVEHIST=10000
 setopt extendedglob nomatch
 unsetopt autocd beep notify
 bindkey -e

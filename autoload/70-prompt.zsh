@@ -29,8 +29,8 @@ function __ratcolwr() {
 }
 
 function __rat_begin_prompt() {
-  alias fa="__ratpu "
-  alias ba="__ratpu "
+  alias fa="if [[ $TERM != 'linux' ]] { __ratpu  }"
+  alias ba="if [[ $TERM != 'linux' ]] { __ratpu  }"
   alias fore="__ratcol fg"
   alias forer="__ratpu '%f'"
   alias wfore="__ratcolwr fg"
@@ -62,6 +62,12 @@ function __rat_build_error() {
   iden " )"
 }
 
+functions __rat_shlvl() {
+  if (( $SHLVL > 1 )); then
+    echo "lvl $SHLVL"
+  fi
+}
+
 function __rat_build_prompt1_venv {
   back $__rat_venv_color
   fore $__rat_back
@@ -80,6 +86,20 @@ function __rat_build_prompt1_venv {
 function __rat_build_prompt1 {
   PROMPT=""
   __ratp="PROMPT"
+
+  local shlvl="$(__rat_shlvl)"
+
+  if [[ -n $shlvl ]]; then
+    back "#3f3f3f"
+    fore "#ffffff"
+    iden " $shlvl "
+    fore "#3f3f3f"
+    back $__rat_back
+    fa
+    forer
+    backr
+  fi
+
   # venv setup
   if [[ -n $__rat_venv ]]; then
     __rat_build_prompt1_venv

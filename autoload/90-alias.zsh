@@ -23,7 +23,7 @@ fi
 
 # git
 alias gis='git status'
-alias gid='git diff'
+alias gid='git diff --word-diff=color'
 alias gidt='git difftool'
 alias gif='git fetch'
 alias gic='git commit'
