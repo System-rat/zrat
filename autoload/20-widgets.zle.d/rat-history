@@ -1,0 +1,17 @@
+# vim: set ft=zsh:
+
+local item=$(history -r 0 | \
+  fzf \
+  --reverse \
+  --height=10 \
+  --header="Select command:" \
+  --header-first --with-nth=2.. \
+  --tiebreak=begin,index)
+if [[ $? == 0 ]]; then
+  local item_arr=(${(z)item})
+  HISTNO="${item_arr[1]}"
+  BUFFER="${item_arr[2,-1]}"
+  CURSOR=$#BUFFER
+fi
+
+zle redisplay

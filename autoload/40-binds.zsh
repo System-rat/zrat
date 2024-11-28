@@ -4,5 +4,5 @@ bindkey "^H" backward-delete-word
 bindkey "^[[3~" delete-char
 bindkey "^[[3;5~" delete-word
 
-zle -N __rat_open_in_man
-bindkey "^[m" __rat_open_in_man
+bindkey "^[m" rat-open-in-man
+(( $+commands[fzf] )) && bindkey "^R" rat-history

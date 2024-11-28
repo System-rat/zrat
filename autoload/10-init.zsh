@@ -14,8 +14,18 @@ fpath+=(~/.zsh/autoload/[0-9]*(/Non))
 for dir in ~/.zsh/autoload/[0-9]*(/Non)
 do
   [[ -n $__rat_debug ]] && echo "Autoloading $dir..."
-  files=($dir/*(N.:t:r))
+
+  local files=($dir/*(N.:t:r))
+  [[ "$dir" =~ '\.zle(\..*)?$' ]]
+  local is_zle=$?
+
   if [[ $#files != 0 ]]; then
     autoload -U $dir/*(.:t:r)
+    if [[ $is_zle -eq 0 ]]; then
+      for widget in $dir/*(.:t:r)
+      do
+        zle -N $widget
+      done
+    fi
   fi
 done
