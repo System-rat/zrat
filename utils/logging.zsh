@@ -2,8 +2,7 @@
 : ${__rat_level:=INFO}
 
 # Order of levels
-readonly -A __rat_level_order
-__rat_level_order=(
+readonly -A __rat_level_order=(
   CRITICAL 0
   ERROR    1
   WARNING  2
