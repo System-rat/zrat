@@ -1,8 +1,8 @@
 # Default log level
-: ${__rat_level=INFO}
+: ${__rat_level:=INFO}
 
 # Order of levels
-local -A __rat_level_order
+readonly -A __rat_level_order
 __rat_level_order=(
   CRITICAL 0
   ERROR    1
@@ -43,7 +43,7 @@ function __rat_msg() {
       label="[$(date '+%Y-%m-%d %H:%M:%S.%N')] \e[1;32m[rat::DEBUG]\e[0m"
       ;;
     TRACE)
-      label="[$(date '+%Y-%m-%d %H:%M:%S.%N')] \e[1;30m[rat::TRACE]\e[0m"
+      label="[$(date '+%Y-%m-%d %H:%M:%S.%N')] \e[1;35m[rat::TRACE]\e[0m"
       ;;
     esac
 

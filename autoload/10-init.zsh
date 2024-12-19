@@ -9,13 +9,13 @@ autoload -U select-word-style
 select-word-style bash
 export WORDCHARS=''
 
-fpath+=(~/.zsh/autoload/[0-9]*(/Non))
+fpath+=(~/.zsh/autoload/[0-9]*(/nNon))
 
-for dir in ~/.zsh/autoload/[0-9]*(/Non)
+for dir in ~/.zsh/autoload/[0-9]*(/nNon)
 do
   [[ -n $__rat_debug ]] && echo "Autoloading $dir..."
 
-  local files=($dir/*(N.:t:r))
+  local files=($dir/*(nN.:t:r))
   [[ "$dir" =~ '\.zle(\..*)?$' ]]
   local is_zle=$?
 

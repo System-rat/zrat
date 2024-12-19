@@ -11,6 +11,7 @@ fi
 if [[ $TERM == "xterm-kitty" ]]; then
   if command -v kitty > /dev/null && [[ -n $KITTY_WINDOW_ID ]]; then
     alias ssh="kitty +kitten ssh"
+    alias cati="kitty +kitten icat"
   fi
 
   # lnav really doesn't like things not being xterm
