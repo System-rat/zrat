@@ -9,12 +9,12 @@ function command_not_found_handler() {
   pkgs=(${(f)"$(pkgfile -b -v -- "$cmd" 2>/dev/null)"})
   if [[ ${#pkgs} -eq 1 ]]
   then
-    choices=(
+    local choices=(
       "install"
       "cancel"
       "re-run"
     )
-    pkg=${pkgs[1]%% *}
+    local pkg=${pkgs[1]%% *}
     case $(rat_menu $choices) in
       install)
         sudo pacman -S --noconfirm -- "$pkg"

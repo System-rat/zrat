@@ -2,7 +2,7 @@
 : ${__rat_level:=INFO}
 
 # Order of levels
-readonly -A __rat_level_order=(
+readonly -gA __rat_level_order=(
   CRITICAL 0
   ERROR    1
   WARNING  2
@@ -51,6 +51,7 @@ function __rat_msg() {
     # Go through every additional argument and substitute ::[name]:: with the argument.
     # [name] is arbitrary since the substitution is order based. If the replacement string
     # contains ::[name]:: the replacement breaks TODO: fix
+    local arg
     for arg in $args; do
       final_msg=$(echo $final_msg | sed "s/::[^:]*::/$arg/")
     done

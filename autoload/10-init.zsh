@@ -29,3 +29,4 @@ do
     fi
   fi
 done
+unset dir
