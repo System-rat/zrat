@@ -47,8 +47,8 @@ if (( $+commands[nix] )); then
 fi
 
 if (( $+commands[nixos-rebuild] )); then
-  alias nos-rs="nixos-rebuild switch"
-  alias nos-rsu="nixos-rebuild switch --upgrade"
+  alias nos-rs="sudo nixos-rebuild switch"
+  alias nos-rsu="sudo nixos-rebuild switch --upgrade"
 fi
 
 # Extras
