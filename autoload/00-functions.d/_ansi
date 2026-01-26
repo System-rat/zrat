@@ -1,0 +1,10 @@
+#compdef ansi
+
+local -a styles=(bold under strike faint reset italic\
+                black red green yellow blue magenta cyan white default\
+                bblack bred bgreen byellow bblue bmagenta bcyan bwhite bdefault\
+                up down left right next prev begin home\
+                erase_s_end erase_s_begin erase_all erase_end erase_begin erase\
+                alt noalt)
+
+_describe 'style' styles

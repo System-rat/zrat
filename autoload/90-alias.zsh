@@ -22,6 +22,11 @@ fi
 # Debian compat
 (( $+commands[batcat] )) && alias cat="batcat"
 
+if (( $+commands[udisksctl] )); then
+  alias mntdisk='udisksctl mount -b'
+  alias umntdisk='udisksctl unmount -b'
+fi
+
 # git
 alias gis='git status -sb'
 alias gid='git diff --word-diff=color'
@@ -36,6 +41,7 @@ alias gipl='git pull'
 alias gipu='git push'
 alias gil='git log'
 alias giw='git switch'
+alias gilg='git log --all --decorate --oneline --graph'
 alias REE_STOP_FUCKING_AROUND='git stash && git pull && git stash pop'
 alias I_SAID_PUSH_THE_DAMN_BRANCH='git push --force'
 

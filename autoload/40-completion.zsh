@@ -12,7 +12,7 @@ zstyle ':completion:*' insert-unambiguous false
 zstyle ':completion:*' list-prompt ''
 zstyle ':completion:*' list-colors “${(s.:.)LS_COLORS}”
 zstyle ':completion:*' list-suffixes true
-zstyle ':completion:*' matcher-list '' '+m:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+zstyle ':completion:*' matcher-list '' '+m:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]-_}={[:upper:][:lower:]_-}' '+l:|=* r:|=*'
 zstyle ':completion:*' match-original both
 zstyle ':completion:*' max-errors 5
 zstyle ':completion:*' menu yes select
@@ -24,4 +24,7 @@ zstyle ':completion:*' verbose true
 
 autoload -Uz compinit
 compinit
+
+# explicitly load the `zsh/complist` module so the `menuselect` key map loads and can be bound to
+zmodload zsh/complist
 
