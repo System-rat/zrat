@@ -1,0 +1,27 @@
+# vim: set ft=zsh :
+
+if ! [[ -f "$1" ]]; then
+  __rat_debug "No input given"
+  print "\
+\e[1mUSAGE:\e[0m uznf ZIPFILE [TARGET]
+
+Unzips a zip file into a new directory with the same name
+
+\e[1mArguments\e[0m
+\tZIPFILE - Zip file whos basename will be the new folder name and will be unziped
+\tTARGET - Optional target directory, if left blank, the current dir"
+  return 1
+fi
+
+local basename=$(basename "$1" .zip)
+
+if [[ -z "$2" ]]; then
+  local target="$(pwd)"
+else
+  local target="$2"
+fi
+
+local destination_folder="${target}/${basename}"
+__rat_info "Unzipping into ${destination_folder}"
+mkdir "$destination_folder" && unzip -d "$destination_folder" "$1"
+

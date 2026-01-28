@@ -119,7 +119,7 @@ function __rat_build_prompt1 {
   fore $__rat_fore
   back $__rat_back
   bold
-  iden " %n@%m"
+  iden " %(!.%F{red}.)%n%(!.%f.)@%m"
   boldr
   wfore white ": "
 
@@ -217,7 +217,11 @@ precmd() {
 }
 
 function __rat_set_pwd() {
-  __rat_pwd=" "${(j:  :)${(s:/:)PWD/"${HOME}"/'~'}:-/}
+  if [[ $TERM != "linux" ]]; then
+    __rat_pwd=" "${(j:  :)${(s:/:)PWD/"${HOME}"/'~'}:-/}
+  else
+    __rat_pwd=" "${(j:/:)${(s:/:)PWD/"${HOME}"/'~'}:-/}
+  fi
 }
 
 __rat_set_pwd
