@@ -2,6 +2,19 @@
 : ${__rat_back:="#5F3B80"}
 local __ratp="PROMPT"
 
+# handle Emacs TRAMP connection issues
+# since it seems to have a shitload of
+# problems with stuff like ZLE
+if [[ $TERM == "dumb" ]]; then
+  unsetopt zle
+  unsetopt prompt_cr
+  unsetopt prompt_subst
+  unfunction precmd
+  unfunction preexec
+  PS1='$ '
+  return
+fi
+
 function __ratpu() {
   : ${(P)__ratp::="${(P)__ratp}"$@}
 }
