@@ -1,0 +1,19 @@
+# vim: set ft=zsh :
+
+function print_usage() {
+  print "\
+\e[1mUSAGE:\e[0m swallow PROGRAM [ARGS...]
+
+Consumes the current shell and launches PROGRAM with optional ARGS"
+}
+
+if [[ $#@ == 0 ]] {
+  print_usage
+  return 1
+} else {
+  local program=$1
+  shift
+  nohup $program "$@" > /dev/null &!
+  exit
+}
+
