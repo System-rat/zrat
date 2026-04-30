@@ -31,7 +31,7 @@ done
 
 shift "$(( $OPTIND - 1 ))"
 
-if [[ $#@ < 2 ]]; then
+if [[ $#@ -lt 2 ]]; then
   print_usage
   return 1
 fi
@@ -100,7 +100,7 @@ while read -rsk1 ch; do
       fi
       ;;
     B)
-      if [[ $curr_selection < $#opts ]]; then
+      if [[ $curr_selection -lt $#opts ]]; then
         (( curr_selection = $curr_selection + 1 ))
       fi
       ;;
